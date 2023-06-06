@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Терминал заказа пиццы</title>
+    <script src="./assets/jquery-3.6.4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#orderButton").click(function () {
+                var pizzaType = $("#pizzaType").val();
+                var pizzaSize = $("#pizzaSize").val();
+                var sauce = $("#sauce").val();
+                var data = {
+                    pizzaType: pizzaType,
+                    pizzaSize: pizzaSize,
+                    sauce: sauce
+                };
+
+                $.ajax({
+                    url: "PizzaOrder.php",
+                    type: "POST",
+                    data: data,
+                    success: function (response) {
+                        $("#orderSummary").html(response);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Терминал заказа пиццы</h1>
+<h2>Выберите пиццу, размер и соус:</h2>
+<select id="pizzaType">
+    <option value="Пепперони">Пепперони</option>
+    <option value="Деревенская">Деревенская</option>
+    <option value="Гавайская">Гавайская</option>
+    <option value="Грибная">Грибная</option>
+</select>
+<br>
+<select id="pizzaSize">
+    <option value="21">21 см</option>
+    <option value="26">26 см</option>
+    <option value="31">31 см</option>
+    <option value="45">45 см</option>
+</select>
+<br>
+<select id="sauce">
+    <option value="сырный">сырный</option>
+    <option value="кисло-сладкий">кисло-сладкий</option>
+    <option value="чесночный">чесночный</option>
+    <option value="барбекю">барбекю</option>
+</select>
+<br>
+<button id="orderButton">Заказать</button>
+<div id="orderSummary"></div>
+</body>
+</html>
